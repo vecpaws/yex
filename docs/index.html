@@ -4,90 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YEX - YAML Extended</title>
+    <!-- DM Sans font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap" rel="stylesheet">
     <style>
+        /* Dark mode styling */
         body {
-            font-family: sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            font-family: 'DM Sans', sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
             line-height: 1.6;
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
         }
         h1, h2, h3 {
-            color: #0056b3;
+            color: #BB86FC; /* A light purple for headers */
         }
         .feature-box {
-            background-color: #fff;
+            background-color: #1E1E1E; /* A slightly lighter dark gray for the content boxes */
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
         }
         pre {
-            background-color: #eee;
+            background-color: #2C2C2C; /* A darker gray for code blocks */
             padding: 10px;
-            border-left: 3px solid #0056b3;
+            border-left: 3px solid #BB86FC;
             overflow-x: auto;
+            border-radius: 4px;
         }
+        code {
+            color: #E0E0E0;
+        }
+        /* YEX Syntax Highlighting Colors */
+        .key { color: #8BE9FD; } /* Light blue for keys */
+        .string { color: #F1FA8C; } /* Yellow for strings */
+        .number { color: #BD93F9; } /* Purple for numbers */
+        .command { color: #FF79C6; } /* Pink for commands like +page */
+        .variable { color: #FFB86C; } /* Orange for variables like $Epic Status$ */
+        .comment { color: #6272A4; } /* Gray for comments */
+        .operator { color: #F1FA8C; } /* Yellow for operators */
+        .tag { color: #50FA7B; } /* Green for tags like !llmsLazyload */
     </style>
 </head>
 <body>
 
 <h1>YEX - YAML Extended</h1>
-<p>A new, extended, and simpler version of YAML is on its way. YEX (YAML Extended) is designed for both newcomers and power users, with a new parser that supports features beyond the standard YAML specification. -w-</p>
+<p>A new, extended, and simpler version of YAML is on its way. YEX (YAML Extended) is designed for both newcomers and power users, with a new parser that supports features beyond the standard YAML specification.</p>
 
 <h2>Key Features</h2>
 
 <div class="feature-box">
-    <h3>Smarter Document Separation with `+page`</h3>
-    <p>The **`+page`** command replaces the simple `---` separator with a full document system, allowing for built-in metadata like titles and descriptions.</p>
-    <pre><code>+page  !llmsLazyload !noWrite
-number: 0
-name: YEX header
-description: |
-Official YEX/1.0 header...</code></pre>
+    <h3>Smarter Document Separation with <span class="command">`+page`</span></h3>
+    <p>The <strong><span class="command">`+page`</span></strong> command replaces the simple `---` separator with a full document system, allowing for built-in metadata like titles and descriptions.</p>
+    <pre><code><span class="command">+page</span> <span class="tag">!llmsLazyload</span> <span class="tag">!noWrite</span>
+  <span class="key">number:</span> <span class="number">0</span>
+  <span class="key">name:</span> <span class="string">YEX header</span>
+  <span class="key">description:</span> |
+    Official YEX/1.0 header...</code></pre>
 </div>
 
 <div class="feature-box">
     <h3>Variables and Equations</h3>
     <p>Use a special variables page to store reusable data and define intelligent equations. Variables can be referenced anywhere, and equations are calculated by the parser.</p>
-    <pre><code>global:
-entities:
-VecPaws:
-$Epic Status$ = ($Epic Number$ * 10)
-$Epic Number$ = 10</code></pre>
-    <p>Variables are accessed with a clear scope. **`global`** variables are defined on a special page, while **`local`** variables are defined on a specific document.</p>
-    <pre><code># Access a global variable
-$global.entities.VecPaws.Epic Status$
+    <pre><code><span class="key">global:</span>
+  <span class="key">entities:</span>
+    <span class="key">VecPaws:</span>
+      <span class="variable">$Epic Status$</span> <span class="operator">=</span> (<span class="variable">$Epic Number$</span> <span class="operator">*</span> <span class="number">10</span>)
+      <span class="variable">$Epic Number$</span> <span class="operator">=</span> <span class="number">10</span></code></pre>
+    <p>Variables are accessed with a clear scope. <strong><span class="variable">`global`</span></strong> variables are defined on a special page, while <strong><span class="variable">`local`</span></strong> variables are defined on a specific document.</p>
+    <pre><code><span class="comment"># Access a global variable</span>
+<span class="variable">$global</span>.<span class="key">entities</span>.<span class="key">VecPaws</span>.<span class="key">Epic Status$</span>
 
-# Access a local variable
-$local.entities.VecPaws.Epic Number$</code></pre>
+<span class="comment"># Access a local variable</span>
+<span class="variable">$local</span>.<span class="key">entities</span>.<span class="key">VecPaws</span>.<span class="key">Epic Number$</span></code></pre>
 </div>
 
 <div class="feature-box">
-    <h3>Conditional Logic with `+if`</h3>
-    <p>Add logic to your files! The **`+if`** and **`+ifNot`** statements allow for dynamic changes to the document based on conditions, turning YEX into a smart, self-modifying format. The parser understands a full range of logical and mathematical operators.</p>
-    <pre><code>$Epic Percent$:
-+if $Epic Number$ == 10,
-set $Epic Percent$ = "100%"</code></pre>
+    <h3>Conditional Logic with <span class="command">`+if`</span></h3>
+    <p>Add logic to your files! The <strong><span class="command">`+if`</span></strong> and <strong><span class="command">`+ifNot`</span></strong> statements allow for dynamic changes to the document based on conditions, turning YEX into a smart, self-modifying format. The parser understands a full range of logical and mathematical operators.</p>
+    <pre><code><span class="variable">$Epic Percent$:</span>
+  <span class="command">+if</span> <span class="variable">$Epic Number$</span> <span class="operator">==</span> <span class="number">10</span><span class="operator">,</span>
+    <span class="key">set</span> <span class="variable">$Epic Percent$</span> <span class="operator">=</span> <span class="string">"100%"</span></code></pre>
 </div>
 
 <div class="feature-box">
-    <h3>Extensible RuleSets (`.yexr`) and Templates</h3>
-    <p>YEX uses a new **`.yexr`** ruleset format to define features and provide a standard library of templates, ensuring compatibility and data integrity. Keys can be marked as required with an asterisk **`*`**.</p>
-    <pre><code>+template:
-  name: "LLM_WebLink"
-  keys:
-    title*:
-      type: string
-      required: true
-    url*:
-      type: string
-      required: true</code></pre>
+    <h3>Extensible RuleSets (<span class="string">`.yexr`</span>) and Templates</h3>
+    <p>YEX uses a new <strong><span class="string">`.yexr`</span></strong> ruleset format to define features and provide a standard library of templates, ensuring compatibility and data integrity. Keys can be marked as required with an asterisk <strong>`*`</strong>.</p>
+    <pre><code><span class="command">+template:</span>
+  <span class="key">name:</span> <span class="string">"LLM_WebLink"</span>
+  <span class="key">keys:</span>
+    <span class="key">title*:</span>
+      <span class="key">type:</span> <span class="string">string</span>
+      <span class="key">required:</span> <span class="number">true</span>
+    <span class="key">url*:</span>
+      <span class="key">type:</span> <span class="string">string</span>
+      <span class="key">required:</span> <span class="number">true</span></code></pre>
 </div>
 
-<p>...and much more to come! Stay tuned for the official release and detailed documentation. :3</p>
+<p>...and much more to come! Stay tuned for the official release and detailed documentation.</p>
 
 </body>
 </html>
