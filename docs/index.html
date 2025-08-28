@@ -3,24 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YEX Format - Coming Soon!</title>
+    <title>YEX - YAML Extended</title>
     <style>
         body {
             font-family: sans-serif;
             background-color: #f0f0f0;
-            text-align: center;
-            padding-top: 100px;
-        }
-        h1 {
             color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        p {
-            color: #666;
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        .feature-box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-left: 3px solid #0056b3;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
-    <h1>YEX Format is Coming Soon!</h1>
-    <p>A new, extended version of YAML is on its way. Stay tuned for more info!</p>
+
+<h1>YEX - YAML Extended</h1>
+<p>A new, extended, and simpler version of YAML is on its way. YEX (YAML Extended) is designed for both newcomers and power users, with a new parser that supports features beyond the standard YAML specification. -w-</p>
+
+<h2>Key Features</h2>
+
+<div class="feature-box">
+    <h3>Smarter Document Separation with `+page`</h3>
+    <p>The **`+page`** command replaces the simple `---` separator with a full document system, allowing for built-in metadata like titles and descriptions.</p>
+    <pre><code>+page  !llmsLazyload !noWrite
+number: 0
+name: YEX header
+description: |
+Official YEX/1.0 header...</code></pre>
+</div>
+
+<div class="feature-box">
+    <h3>Variables and Equations</h3>
+    <p>Use a special variables page to store reusable data and define intelligent equations. Variables can be referenced anywhere, and equations are calculated by the parser.</p>
+    <pre><code>global:
+entities:
+VecPaws:
+$Epic Status$ = ($Epic Number$ * 10)
+$Epic Number$ = 10</code></pre>
+    <p>Variables are accessed with a clear scope. **`global`** variables are defined on a special page, while **`local`** variables are defined on a specific document.</p>
+    <pre><code># Access a global variable
+$global.entities.VecPaws.Epic Status$
+
+# Access a local variable
+$local.entities.VecPaws.Epic Number$</code></pre>
+</div>
+
+<div class="feature-box">
+    <h3>Conditional Logic with `+if`</h3>
+    <p>Add logic to your files! The **`+if`** and **`+ifNot`** statements allow for dynamic changes to the document based on conditions, turning YEX into a smart, self-modifying format. The parser understands a full range of logical and mathematical operators.</p>
+    <pre><code>$Epic Percent$:
++if $Epic Number$ == 10,
+set $Epic Percent$ = "100%"</code></pre>
+</div>
+
+<div class="feature-box">
+    <h3>Extensible RuleSets (`.yexr`) and Templates</h3>
+    <p>YEX uses a new **`.yexr`** ruleset format to define features and provide a standard library of templates, ensuring compatibility and data integrity. Keys can be marked as required with an asterisk **`*`**.</p>
+    <pre><code>+template:
+  name: "LLM_WebLink"
+  keys:
+    title*:
+      type: string
+      required: true
+    url*:
+      type: string
+      required: true</code></pre>
+</div>
+
+<p>...and much more to come! Stay tuned for the official release and detailed documentation. :3</p>
+
 </body>
 </html>
